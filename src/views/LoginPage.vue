@@ -103,42 +103,42 @@ export default {
   justify-content: center;
   min-height: 100vh;
   background: linear-gradient(135deg, #032549, #1d6fcc);
-  padding: 20px;
+  padding: 10px; /* Reduzindo o padding para economizar espaço */
 }
 
 .banner {
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 10px; /* Reduzindo o margin-bottom */
 }
 
 .logo-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 20px;
+  margin-bottom: 10px; /* Reduzindo o margin-bottom */
 }
 
 .logo {
-  width: 60px; /* Ajuste o tamanho da logo conforme necessário */
+  width: 40px; /* Reduzindo o tamanho da logo */
   height: auto;
-  margin-right: 10px; /* Espaço entre a logo e o texto */
+  margin-right: 8px; /* Reduzindo o espaço entre a logo e o texto */
 }
 
 .app-name {
-  font-size: 2rem;
+  font-size: 1.2rem; /* Reduzindo o tamanho da fonte */
   color: #032549;
   margin: 0;
 }
 
 .banner-title {
-  font-size: 2.5rem;
+  font-size: 1.5rem; /* Reduzindo o tamanho da fonte */
   color: white;
-  margin-bottom: 10px;
+  margin-bottom: 5px; /* Reduzindo o margin-bottom */
   font-weight: bold;
 }
 
 .banner-subtitle {
-  font-size: 1.2rem;
+  font-size: 0.9rem; /* Reduzindo o tamanho da fonte */
   color: rgba(255, 255, 255, 0.8);
 }
 
@@ -146,20 +146,20 @@ export default {
   width: 100%;
   max-width: 400px;
   background: white;
-  padding: 20px;
-  border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  padding: 10px; /* Reduzindo o padding */
+  border-radius: 8px; /* Reduzindo o border-radius */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Reduzindo a sombra */
 }
 
 .login-button {
-  margin-top: 20px;
-  width: 100%; /* Garante que o botão ocupe a largura total */
+  margin-top: 10px; /* Reduzindo o margin-top */
+  width: 100%;
 }
 
 .register-link {
   text-align: center;
-  margin-top: 20px;
-  font-size: 0.9rem;
+  margin-top: 10px; /* Reduzindo o margin-top */
+  font-size: 0.8rem; /* Reduzindo o tamanho da fonte */
   color: #666;
 }
 
@@ -175,5 +175,36 @@ export default {
 
 .van-field__left-icon {
   color: #007bff;
+}
+
+/* Media Queries para ajustes em telas menores */
+@media (max-width: 480px) {
+  .banner-title {
+    font-size: 1.2rem; /* Ajustando o tamanho da fonte para telas muito pequenas */
+  }
+
+  .banner-subtitle {
+    font-size: 0.8rem; /* Ajustando o tamanho da fonte para telas muito pequenas */
+  }
+
+  .logo {
+    width: 30px; /* Reduzindo ainda mais o tamanho da logo */
+  }
+
+  .app-name {
+    font-size: 1rem; /* Reduzindo o tamanho da fonte para telas muito pequenas */
+  }
+
+  .form-container {
+    padding: 8px; /* Reduzindo o padding para telas muito pequenas */
+  }
+
+  .login-button {
+    margin-top: 8px; /* Reduzindo o margin-top para telas muito pequenas */
+  }
+
+  .register-link {
+    font-size: 0.7rem; /* Reduzindo o tamanho da fonte para telas muito pequenas */
+  }
 }
 </style>
