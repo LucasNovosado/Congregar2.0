@@ -52,31 +52,31 @@ import { login } from '@/services/auth';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
-import BotaoPadrao from '@/components/BotaoPadrao.vue'; // Importando o BotaoPadrao
-import { Toast } from 'vant'; // Importando o Toast para exibir mensagens de erro
+import BotaoPadrao from '@/components/BotaoPadrao.vue';
+import { Toast } from 'vant';
 
 export default {
   components: {
-    BotaoPadrao, // Registrando o componente BotaoPadrao
+    BotaoPadrao,
   },
   setup() {
     const username = ref('');
     const password = ref('');
-    const isLoading = ref(false); // Estado para controlar o loading
+    const isLoading = ref(false);
     const router = useRouter();
     const store = useStore();
 
     const onSubmit = async () => {
-      isLoading.value = true; // Inicia a animação de loading
+      isLoading.value = true;
 
       try {
         await login(username.value, password.value);
         store.dispatch('updateUsername', username.value);
         router.push({ name: 'Dashboard' });
       } catch (error) {
-        Toast.fail('Erro ao fazer login. Verifique suas credenciais.'); // Exibe mensagem de erro
+        Toast.fail('Erro ao fazer login. Verifique suas credenciais.');
       } finally {
-        isLoading.value = false; // Para a animação de loading
+        isLoading.value = false;
       }
     };
 
@@ -103,63 +103,67 @@ export default {
   justify-content: center;
   min-height: 100vh;
   background: linear-gradient(135deg, #032549, #1d6fcc);
-  padding: 10px; /* Reduzindo o padding para economizar espaço */
+  padding: 16px;
+  box-sizing: border-box;
 }
 
 .banner {
   text-align: center;
-  margin-bottom: 10px; /* Reduzindo o margin-bottom */
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 400px;
 }
 
 .logo-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 10px; /* Reduzindo o margin-bottom */
+  margin-bottom: 16px;
 }
 
 .logo {
-  width: 40px; /* Reduzindo o tamanho da logo */
+  width: 36px;
   height: auto;
-  margin-right: 8px; /* Reduzindo o espaço entre a logo e o texto */
+  margin-right: 8px;
 }
 
 .app-name {
-  font-size: 1.2rem; /* Reduzindo o tamanho da fonte */
+  font-size: 1.5rem;
   color: #032549;
   margin: 0;
 }
 
 .banner-title {
-  font-size: 1.5rem; /* Reduzindo o tamanho da fonte */
+  font-size: 1.8rem;
   color: white;
-  margin-bottom: 5px; /* Reduzindo o margin-bottom */
+  margin-bottom: 8px;
   font-weight: bold;
 }
 
 .banner-subtitle {
-  font-size: 0.9rem; /* Reduzindo o tamanho da fonte */
-  color: rgba(255, 255, 255, 0.8);
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .form-container {
   width: 100%;
   max-width: 400px;
   background: white;
-  padding: 10px; /* Reduzindo o padding */
-  border-radius: 8px; /* Reduzindo o border-radius */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Reduzindo a sombra */
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
 
 .login-button {
-  margin-top: 10px; /* Reduzindo o margin-top */
+  margin-top: 24px;
   width: 100%;
+  height: 44px;
 }
 
 .register-link {
   text-align: center;
-  margin-top: 10px; /* Reduzindo o margin-top */
-  font-size: 0.8rem; /* Reduzindo o tamanho da fonte */
+  margin-top: 16px;
+  font-size: 0.9rem;
   color: #666;
 }
 
@@ -177,34 +181,82 @@ export default {
   color: #007bff;
 }
 
-/* Media Queries para ajustes em telas menores */
+/* Media Queries */
 @media (max-width: 480px) {
+  .login-container {
+    padding: 12px;
+  }
+
+  .banner {
+    margin-bottom: 16px;
+  }
+
   .banner-title {
-    font-size: 1.2rem; /* Ajustando o tamanho da fonte para telas muito pequenas */
+    font-size: 1.5rem;
   }
 
   .banner-subtitle {
-    font-size: 0.8rem; /* Ajustando o tamanho da fonte para telas muito pequenas */
-  }
-
-  .logo {
-    width: 30px; /* Reduzindo ainda mais o tamanho da logo */
-  }
-
-  .app-name {
-    font-size: 1rem; /* Reduzindo o tamanho da fonte para telas muito pequenas */
+    font-size: 0.9rem;
   }
 
   .form-container {
-    padding: 8px; /* Reduzindo o padding para telas muito pequenas */
+    padding: 16px;
+    border-radius: 8px;
+  }
+
+  .logo {
+    width: 32px;
+  }
+
+  .app-name {
+    font-size: 1.3rem;
   }
 
   .login-button {
-    margin-top: 8px; /* Reduzindo o margin-top para telas muito pequenas */
+    margin-top: 20px;
+    height: 40px;
   }
 
   .register-link {
-    font-size: 0.7rem; /* Reduzindo o tamanho da fonte para telas muito pequenas */
+    font-size: 0.8rem;
+  }
+}
+
+/* Additional Media Query for very small devices */
+@media (max-width: 320px) {
+  .login-container {
+    padding: 8px;
+  }
+
+  .banner-title {
+    font-size: 1.3rem;
+  }
+
+  .banner-subtitle {
+    font-size: 0.8rem;
+  }
+
+  .form-container {
+    padding: 12px;
+  }
+
+  .logo {
+    width: 28px;
+  }
+
+  .app-name {
+    font-size: 1.2rem;
+  }
+
+  .register-link {
+    font-size: 0.7rem;
+  }
+}
+
+/* Fix for viewport height on mobile browsers */
+@supports (-webkit-touch-callout: none) {
+  .login-container {
+    min-height: -webkit-fill-available;
   }
 }
 </style>
