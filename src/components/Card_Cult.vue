@@ -62,12 +62,23 @@
     name: 'CardCult',
     components: { VanIcon },
     computed: {
-      ...mapGetters(['getCults']), // Lista completa de cultos
-      sortedCults() {
-        // Ordena do mais recente para o mais antigo
-        return [...this.getCults].sort((a, b) => new Date(b.date) - new Date(a.date));
+      ...mapGetters(['getCults']),
+  sortedCults() {
+    return [...this.getCults].sort((a, b) => {
+      // Primeiro compara as datas
+      const dateComparison = new Date(b.date) - new Date(a.date);
+      
+      // Se as datas forem iguais, compara pelo número do culto
+      if (dateComparison === 0) {
+        const indexA = this.getCults.findIndex(c => c.id === a.id);
+        const indexB = this.getCults.findIndex(c => c.id === b.id);
+        return indexB - indexA; // Ordem decrescente (maior número primeiro)
       }
-    },
+      
+      return dateComparison;
+    });
+  }
+},
     methods: {
       getCultNumber(cult) {
         // Encontra o índice original do culto na lista completa
