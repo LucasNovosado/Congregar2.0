@@ -1,102 +1,64 @@
-<template>
-  <header class="header-container">
-    <div class="welcome-message">
-      Bem-vindo, <span class="username">{{ username }}</span>
-    </div>
-    <button class="logout-button" @click="handleLogout" :disabled="isLoading">
-      {{ isLoading ? 'Saindo...' : 'Sair' }}
-    </button>
-  </header>
-</template>
+import { createRouter, createWebHistory } from "vue-router";
+import LoginPage from "@/views/LoginPage.vue";
+import DashboardPage from "@/views/DashboardPage.vue";
+import CadastroPage from "@/views/CadastroPage.vue";
+import AddPage from "@/views/AddPage.vue";
+import EditPage from "@/views/EditPage.vue";
+import { checkAuth } from "@/services/auth";
 
-<script>
-import { mapGetters } from 'vuex';
-import { logout } from '@/services/auth';
-import { ref } from 'vue';
-
-export default {
-  name: 'TopHeader',
-  setup() {
-    const isLoading = ref(false);
-    return { isLoading };
+const routes = [
+  {
+    path: "/",
+    name: "Login",
+    component: LoginPage,
+    meta: { requiresAuth: false }
   },
-  computed: {
-    ...mapGetters(['getUsername']),
-    username() {
-      return this.getUsername || 'Usuário';
-    }
+  {
+    path: "/dashboard",
+    name: "Dashboard",
+    component: DashboardPage,
+    meta: { requiresAuth: true }
   },
-  methods: {
-    async handleLogout() {
-      try {
-        this.isLoading = true;
-        await logout(); // Usa a função de logout do serviço de autenticação
-        this.$router.push({ name: 'Login' });
-      } catch (error) {
-        console.error('Erro ao fazer logout:', error);
-      } finally {
-        this.isLoading = false;
-      }
-    }
+  {
+    path: "/cadastro",
+    name: "Cadastro",
+    component: CadastroPage,
+    meta: { requiresAuth: false }
+  },
+  {
+    path: '/cults/add',
+    name: 'AddCult',
+    component: AddPage,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/cults/edit/:id',
+    name: 'EditCult',
+    component: EditPage,
+    meta: { requiresAuth: true }
   }
-};
-</script>
+];
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes,
+});
+
+router.beforeEach(async (to, from, next) => {
+  const isAuthed = await checkAuth();
   
-<style scoped>
-.header-container {
- display: flex;
- justify-content: space-between;
- align-items: center;
- padding: 15px 30px;
- background: linear-gradient(135deg, rgba(3,37,73,0.95), rgba(29,111,204,0.95));
- backdrop-filter: blur(10px);
- box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-}
+  // Se a rota requer autenticação e o usuário não está autenticado
+  if (to.meta.requiresAuth && !isAuthed) {
+    next({ name: "Login" });
+  }
+  // Se o usuário está tentando acessar login/cadastro enquanto autenticado
+  else if (isAuthed && (to.name === "Login" || to.name === "Cadastro")) {
+    next({ name: "Dashboard" });
+  }
+  // Em outros casos, permite a navegação
+  else {
+    next();
+  }
+});
 
-.welcome-message {
- font-size: 1.3rem;
- font-weight: 600;
- color: #ffffff;
- text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.username {
- color: #ffd700;
- font-weight: 700;
-}
-
-.logout-button {
- background: rgba(255,255,255,0.1);
- color: white;
- border: 1px solid rgba(255,255,255,0.2);
- padding: 10px 20px;
- border-radius: 8px;
- cursor: pointer;
- font-size: 0.9rem;
- font-weight: 500;
- transition: all 0.3s ease;
- backdrop-filter: blur(5px);
-}
-
-.logout-button:not(:disabled):hover {
- background: rgba(255,255,255,0.2);
- transform: translateY(-2px);
- box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-}
-
-.logout-button:disabled {
- opacity: 0.7;
- cursor: not-allowed;
- transform: none;
-}
-
-@media (max-width: 768px) {
- .header-container {
-   padding: 12px 20px;
- }
- 
- .welcome-message {
-   font-size: 1.1rem;
- }
-}
-</style>
+export default router;
