@@ -54,7 +54,7 @@ export default {
   padding: 20px;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 15px;
-  margin: 20px;
+  margin: 20px auto; /* Centraliza o container */
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -62,6 +62,7 @@ export default {
   border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   animation: fadeIn 0.8s ease-out forwards;
+  width: 90%; /* Largura total para mobile por padrão */
 }
 
 .custom-field {
@@ -116,6 +117,12 @@ export default {
   background: rgba(255, 255, 255, 0.2);
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+@media (min-width: 768px) {
+  .filter-container {
+    width: 50%; /* Reduz para 50% da largura em desktop */
+    max-width: 400px; /* Estabelece uma largura máxima */
+  }
 }
 
 @keyframes fadeIn {
