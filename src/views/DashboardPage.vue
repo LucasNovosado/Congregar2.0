@@ -15,6 +15,15 @@
         <AddButton />
       </main>
     </div>
+    <!-- Popup movido para fora do content-wrapper -->
+    <PopupStatistic 
+      v-if="popupData.isVisible"
+      :isVisible="popupData.isVisible"
+      :title="popupData.title"
+      :items="popupData.items"
+      :field="popupData.field"
+      @close="handlePopupClose"
+    />
   </div>
 </template>
  
@@ -27,15 +36,24 @@
  import CardStatistic from '@/components/Card_Statistic.vue';
  import CardCult from '@/components/Card_Cult.vue';
  import AddButton from '@/components/Add_Button.vue';
+ import PopupStatistic from '@/components/Popup_Statistic.vue';
+
  
  export default {
   data() {
     return {
-      isPopupVisible: false
+      isPopupVisible: false,
+      popupData: {
+        isVisible: false,
+        title: '',
+        items: [],
+        field: ''
+      }
     }
   },
   name: 'DashboardPage',
   components: {
+    PopupStatistic,
     TopHeader,
     BibleVerse,
     CardStatistic,
@@ -48,11 +66,19 @@
     ...mapGetters(['getCults'])
   },
   methods: {
-    handlePopupOpen() {
+    
+    handlePopupOpen(data) {
       this.isPopupVisible = true;
+      this.popupData = {
+        isVisible: true,
+        title: data.title,
+        items: data.items,
+        field: data.field
+      };
     },
     handlePopupClose() {
       this.isPopupVisible = false;
+      this.popupData.isVisible = false;
     },
     ...mapActions(['fetchCults']),
     handleEdit(cult) {
@@ -97,8 +123,9 @@
 }
 
 .dashboard-container {
- min-height: 100vh;
- background: linear-gradient(135deg, #1a2a6c 0%, #2a4858 100%);
+  position: relative;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a2a6c 0%, #2a4858 100%);
 }
 
 .dashboard-content {
@@ -137,7 +164,11 @@ h1::after {
    transform: translateY(0);
  }
 }
-
+.dashboard-content {
+  position: relative;
+  z-index: 1;
+  padding: 30px 20px;
+}
 .dashboard-content > * {
  animation: fadeIn 0.8s ease-out forwards;
 }
@@ -157,6 +188,21 @@ h1::after {
 ::-webkit-scrollbar-thumb {
  background: linear-gradient(180deg, #1d6fcc, #032549);
  border-radius: 4px;
+}
+
+.content-wrapper {
+  position: relative;
+  z-index: 1;
+  transition: filter 0.3s ease;
+}
+.content-wrapper.blur {
+  filter: blur(4px);
+  pointer-events: none;
+}
+/* Garantir que o filtro fique abaixo do popup */
+:deep(.filter-cult) {
+  position: relative;
+  z-index: 1;
 }
 
 @media (max-width: 768px) {
