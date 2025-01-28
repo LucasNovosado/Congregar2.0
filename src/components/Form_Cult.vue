@@ -223,6 +223,8 @@ validateForm() {
  transition: opacity 0.3s ease;
 }
 .form-wrapper {
+  max-width: 800px;
+  margin: 0 auto;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
   border-radius: 16px;
@@ -230,6 +232,7 @@ validateForm() {
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   animation: fadeIn 0.8s ease-out forwards;
   animation-delay: 0.4s;
+  width: 95%;
 }
 
 .cult-form {
@@ -242,6 +245,7 @@ validateForm() {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1.5rem;
+  max-width: 100%;
 }
 
 .input-group {
