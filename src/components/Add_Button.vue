@@ -39,10 +39,8 @@
   </script>
   
   <style scoped>
-  .add-button {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
+ .add-button {
+    /* remover position: fixed; */
     padding: 16px 24px;
     border-radius: 50px;
     background: linear-gradient(135deg, #1d6fcc 0%, #032549 100%);
@@ -55,7 +53,7 @@
     box-shadow: 0 4px 15px rgba(29, 111, 204, 0.4);
     transition: all 0.3s ease;
     z-index: 1000;
-  }
+}
   
   .add-button::before {
     content: '';
