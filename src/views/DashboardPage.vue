@@ -4,6 +4,9 @@
     <div class="content-wrapper" :class="{ 'blur': isPopupVisible }">
       <main class="dashboard-content">
         <h1>Memórias do Caminho</h1>
+        <h2 class="dashboard-subtitle">
+  Este registro nasce com o propósito de preservar os momentos marcantes vividos na presença de Deus em sua casa, onde a palavra ministrada fortalece a fé e edifica a alma. Cada anotação busca guardar os detalhes de datas, locais, e palavras que marcaram nossa vida cristã, como um tesouro espiritual para revisitar e relembrar a direção do Senhor em nossa vida.
+</h2>
         <div class="bible-calendar-container">
           <BibleVerse class="bible-verse" />
           <CalendarCult class="calendar-cult" />
@@ -99,6 +102,49 @@
 
 <style scoped>
 
+.dashboard-subtitle {
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 900px;
+  margin: 0 auto 40px;
+  line-height: 1.6;
+  padding: 0 20px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+  font-style: italic;
+}
+
+.dashboard-subtitle::after {
+  content: '';
+  position: absolute;
+  height: 1px;
+  width: 100px;
+  background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.5), transparent);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.dashboard-subtitle::before {
+  top: -15px;
+}
+
+.dashboard-subtitle::after {
+  bottom: -15px;
+}
+
+@media (max-width: 768px) {
+  .dashboard-subtitle {
+    font-size: 1rem;
+    padding: 0 15px;
+    margin-bottom: 30px;
+  }
+  
+  .dashboard-subtitle::before,
+  .dashboard-subtitle::after {
+    width: 60px;
+  }
+}
 
 .bible-calendar-container {
   display: flex;
@@ -134,7 +180,7 @@ h1 {
   font-weight: 800;
   color: #ffffff;
   text-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  margin: 30px 0 60px 0; /* Aumentado para 50px na margem inferior */
+  margin: 30px 0 30px 0; /* Aumentado para 50px na margem inferior */
   /* ou você pode usar: */
   position: relative;
   display: inline-block;
