@@ -7,9 +7,10 @@
         <div class="bible-calendar-container">
           <BibleVerse class="bible-verse" />
           <CalendarCult class="calendar-cult" />
+          <FilterCult />
+
         </div>
         <CardStatistic @popup-opened="handlePopupOpen" @popup-closed="handlePopupClose" />
-        <FilterCult />
         <h1>Lista de Cultos</h1>
         <CardCult :cults="getCults" @edit="handleEdit" @delete="handleDelete" />
         <AddButton />
@@ -128,20 +129,16 @@
   background: linear-gradient(135deg, #1a2a6c 0%, #2a4858 100%);
 }
 
-.dashboard-content {
- padding: 30px 20px;
-}
-
 h1 {
- font-size: 2.8rem;
- font-weight: 800;
- color: #ffffff;
- text-shadow: 0 4px 8px rgba(0,0,0,0.2);
- margin: 30px 0;
- position: relative;
- display: inline-block;
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: #ffffff;
+  text-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  margin: 30px 0 60px 0; /* Aumentado para 50px na margem inferior */
+  /* ou você pode usar: */
+  position: relative;
+  display: inline-block;
 }
-
 h1::after {
  content: '';
  position: absolute;
@@ -168,9 +165,7 @@ h1::after {
   position: relative;
   z-index: 1;
   padding: 30px 20px;
-}
-.dashboard-content > * {
- animation: fadeIn 0.8s ease-out forwards;
+  animation: fadeIn 0.8s ease-out forwards;
 }
 
 .dashboard-content > *:nth-child(1) { animation-delay: 0.2s; }
