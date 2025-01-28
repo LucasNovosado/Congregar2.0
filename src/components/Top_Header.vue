@@ -3,17 +3,23 @@
     <div class="welcome-message">
       Bem-vindo, <span class="username">{{ username }}</span>
     </div>
-    <button class="logout-button" @click="handleLogout">
-      Sair
+    <button class="logout-button" @click="handleLogout" :disabled="isLoading">
+      {{ isLoading ? 'Saindo...' : 'Sair' }}
     </button>
   </header>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
+import { logout } from '@/services/auth';
+import { ref } from 'vue';
 
 export default {
-  name: 'TopHeader', // Nome do componente atualizado
+  name: 'TopHeader',
+  setup() {
+    const isLoading = ref(false);
+    return { isLoading };
+  },
   computed: {
     ...mapGetters(['getUsername']),
     username() {
@@ -21,9 +27,16 @@ export default {
     }
   },
   methods: {
-    handleLogout() {
-      this.$store.dispatch('updateUsername', null);
-      this.$router.push({ name: 'Login' });
+    async handleLogout() {
+      try {
+        this.isLoading = true;
+        await logout(); // Usa a função de logout do serviço de autenticação
+        this.$router.push({ name: 'Login' });
+      } catch (error) {
+        console.error('Erro ao fazer logout:', error);
+      } finally {
+        this.isLoading = false;
+      }
     }
   }
 };
@@ -65,10 +78,16 @@ export default {
  backdrop-filter: blur(5px);
 }
 
-.logout-button:hover {
+.logout-button:not(:disabled):hover {
  background: rgba(255,255,255,0.2);
  transform: translateY(-2px);
  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.logout-button:disabled {
+ opacity: 0.7;
+ cursor: not-allowed;
+ transform: none;
 }
 
 @media (max-width: 768px) {
