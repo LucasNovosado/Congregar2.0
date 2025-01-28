@@ -28,7 +28,7 @@
           </div>
   
           <div class="info-row">
-            <span class="label">Palavra Revelada ao:</span>
+            <span class="label">Revelado ao:</span>
             <span class="value">{{ cult.preaching }}</span>
           </div>
   
