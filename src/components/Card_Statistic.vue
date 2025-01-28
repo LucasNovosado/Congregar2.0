@@ -136,11 +136,12 @@
       }
     },
     methods: {
-  showPopup(field, title) {
-    this.selectedField = field;
-    this.popupTitle = title;
-    this.popupVisible = true;
-    this.$emit('popup-opened');
+      showPopup(field, title) {
+    this.$emit('popup-opened', {
+      title: title,
+      items: this.userCults,
+      field: field
+    });
   },
   closePopup() {
     this.popupVisible = false;
@@ -152,6 +153,8 @@
    
    <style scoped>
    .statistics-container {
+    position: relative;
+  z-index: 1;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 25px;
