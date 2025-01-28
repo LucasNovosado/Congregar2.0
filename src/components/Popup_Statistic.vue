@@ -137,30 +137,29 @@
   color: #ffd700;
 }
 .popup-overlay {
- position: fixed;
- top: 0;
- left: 0;
- width: 100%;
- height: 100%;
- background: rgba(0, 0, 0, 0.7);
- backdrop-filter: blur(5px);
- z-index: 1000;
- display: flex;
- justify-content: center;
- align-items: center;
- animation: fadeIn 0.3s ease;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+  z-index: 9999; /* Aumentado para garantir que fique acima de tudo */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-
 .popup-content {
- width: 90%;
- max-width: 500px;
- max-height: 40vh;
- background: linear-gradient(145deg, #032549, #1d6fcc);
- border-radius: 20px;
- box-shadow: 0 15px 30px rgba(0,0,0,0.3);
- overflow: hidden;
- animation: slideUp 0.4s ease;
+  position: relative;
+  z-index: 10000; /* Maior que o overlay */
+  width: 90%;
+  max-width: 500px;
+  max-height: 80vh;
+  background: linear-gradient(145deg, #032549, #1d6fcc);
+  border-radius: 20px;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+  overflow: hidden;
 }
 
 .popup-header {
