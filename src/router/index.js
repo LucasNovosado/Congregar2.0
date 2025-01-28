@@ -9,6 +9,10 @@ import { checkAuth } from "@/services/auth";
 const routes = [
   {
     path: "/",
+    redirect: { name: "Dashboard" }
+  },
+  {
+    path: "/login",
     name: "Login",
     component: LoginPage,
     meta: { requiresAuth: false }
@@ -36,6 +40,10 @@ const routes = [
     name: 'EditCult',
     component: EditPage,
     meta: { requiresAuth: true }
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: { name: "Dashboard" }
   }
 ];
 
@@ -51,7 +59,7 @@ router.beforeEach(async (to, from, next) => {
   if (to.meta.requiresAuth && !isAuthed) {
     next({ name: "Login" });
   }
-  // Se o usuário está tentando acessar login/cadastro enquanto autenticado
+  // Se o usuário está autenticado e tentando acessar login/cadastro
   else if (isAuthed && (to.name === "Login" || to.name === "Cadastro")) {
     next({ name: "Dashboard" });
   }
