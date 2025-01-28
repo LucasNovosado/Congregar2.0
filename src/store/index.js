@@ -4,7 +4,8 @@ import Parse from '@/services/parse';
 
 export default createStore({
   state: {
-    username: null,
+    username: localStorage.getItem('username') || null,
+    authToken: localStorage.getItem('authToken') || null,
     cults: [],
     dateFilter: {
       startDate: null,
@@ -14,6 +15,17 @@ export default createStore({
   mutations: {
     setUsername(state, username) {
       state.username = username;
+      localStorage.setItem('username', username);
+    },
+    setAuthToken(state, token) {
+      state.authToken = token;
+      localStorage.setItem('authToken', token);
+    },
+    clearAuth(state) {
+      state.username = null;
+      state.authToken = null;
+      localStorage.removeItem('username');
+      localStorage.removeItem('authToken');
     },
     SET_CULTS(state, cults) {
       state.cults = cults;
@@ -38,6 +50,12 @@ export default createStore({
   actions: {
     updateUsername({ commit }, username) {
       commit('setUsername', username);
+    },
+    saveAuthToken({ commit }, token) {
+      commit('setAuthToken', token);
+    },
+    logout({ commit }) {
+      commit('clearAuth');
     },
     async fetchCults({ commit }) {
       try {
@@ -82,6 +100,7 @@ export default createStore({
     },
   },
   getters: {
+    isAuthenticated: state => !!state.authToken,
     getUsername: state => state.username,
     getCults: state => {
       const { startDate, endDate } = state.dateFilter;
