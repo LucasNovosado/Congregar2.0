@@ -16,8 +16,11 @@
         <CardStatistic @popup-opened="handlePopupOpen" @popup-closed="handlePopupClose" />
         <h1>Lista de Cultos</h1>
         <CardCult :cults="getCults" @edit="handleEdit" @delete="handleDelete" />
-        <AddButton />
+        
       </main>
+      <div class="add-button-wrapper">
+          <AddButton />
+</div>
     </div>
     <!-- Popup movido para fora do content-wrapper -->
     <PopupStatistic 
@@ -101,6 +104,20 @@
  </script>
 
 <style scoped>
+
+.add-button-wrapper {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 99;
+}
+
+@media (max-width: 768px) {
+  .add-button-wrapper {
+    bottom: 20px;
+    right: 20px;
+  }
+}
 
 .dashboard-subtitle {
   font-size: 1.2rem;
