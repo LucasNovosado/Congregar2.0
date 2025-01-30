@@ -107,9 +107,10 @@ export default {
 @media (max-width: 768px) {
   .bible-verse-container {
     padding: 15px 20px;
-    margin: 10px 5px;
+    margin: 10px auto; /* Mudado de '10px 5px' para '10px auto' para centralizar */
     min-height: 60px;
-    max-width: 95%;
+    width: 320px; /* Largura fixa */
+    max-width: 93%;
   }
 
   .title {
@@ -126,4 +127,5 @@ export default {
     font-size: 0.8rem;
   }
 }
+
 </style>
