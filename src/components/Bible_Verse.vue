@@ -1,20 +1,44 @@
 <template>
-    <div class="bible-verse-container">
-      <div class="verse-text">
-        <p class="quote">"Buscai, pois, em primeiro lugar, o Reino de Deus e a sua justiça, e todas essas coisas vos serão acrescentadas."</p>
-        <p class="reference">Mateus 6:33</p>
-      </div>
+  <div class="bible-verse-container">
+    <div class="verse-text" v-if="currentVerse">
+      <p class="title">{{ currentVerse.título }}</p>
+      <p class="quote">"{{ currentVerse.texto }}"</p>
+      <p class="reference">{{ currentVerse.livro }} {{ currentVerse.capítulo }}:{{ currentVerse.versículo }}</p>
     </div>
-  </template>
-  
-  <script>
-  export default {
-    name: 'BibleVerse', // Nome do componente
-  };
-  </script>
-  
-  <style scoped>
- .bible-verse-container {
+    <div v-else class="loading">
+      <p>Carregando versículo...</p>
+    </div>
+  </div>
+</template>
+
+<script>
+import versiculos from '@/assets/bible.json'
+
+export default {
+  name: 'BibleVerse',
+  data() {
+    return {
+      verses: [],
+      currentVerse: null
+    }
+  },
+  created() {
+    this.verses = versiculos;
+    this.getRandomVerse();
+  },
+  methods: {
+    getRandomVerse() {
+      if (this.verses && this.verses.length > 0) {
+        const randomIndex = Math.floor(Math.random() * this.verses.length);
+        this.currentVerse = this.verses[randomIndex];
+      }
+    }
+  }
+}
+</script>
+
+<style scoped>
+.bible-verse-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -26,9 +50,23 @@
   box-shadow: 0 8px 32px rgba(31,38,135,0.15);
   border: 1px solid rgba(255,255,255,0.18);
   margin: 20px auto;
-  max-width: 90%; /* Ajuste para garantir que não ultrapasse a tela */
+  max-width: 90%;
   transition: all 0.4s ease;
-  word-wrap: break-word; /* Garante que o texto quebre corretamente */
+  word-wrap: break-word;
+}
+
+.verse-text {
+  width: 100%;
+  text-align: center;
+  animation: fadeIn 0.5s ease-in;
+}
+
+.title {
+  font-size: 1.2rem;
+  color: #ffd700;
+  margin-bottom: 12px;
+  font-weight: bold;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
 .quote {
@@ -39,7 +77,7 @@
   margin-bottom: 8px;
   text-shadow: 0 2px 4px rgba(0,0,0,0.1);
   font-family: 'Georgia', serif;
-  overflow-wrap: break-word; /* Garante que o texto quebre corretamente */
+  overflow-wrap: break-word;
 }
 
 .reference {
@@ -47,27 +85,45 @@
   font-weight: 600;
   color: #ffd700;
   margin-top: 8px;
-  letter-spacing: 0.5px; /* Corrigido: formatação correta da propriedade */
+  letter-spacing: 0.5px;
 }
 
+.loading {
+  color: #ffffff;
+  font-style: italic;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
 @media (max-width: 768px) {
   .bible-verse-container {
-    padding: 10px 15px; /* Reduzir o padding em telas menores */
-    margin: 10px 5px; /* Reduzir a margem em telas menores */
-    min-height: 60px; /* Reduzir a altura mínima */
-    max-width: 95%; /* Ajustar o max-width para telas menores */
+    padding: 15px 20px;
+    margin: 10px 5px;
+    min-height: 60px;
+    max-width: 95%;
+  }
+
+  .title {
+    font-size: 1rem;
+    margin-bottom: 8px;
   }
 
   .quote {
-    font-size: 0.9rem; /* Reduzir o tamanho da fonte em telas menores */
-    line-height: 1.4; /* Ajustar o espaçamento entre linhas */
+    font-size: 0.9rem;
+    line-height: 1.4;
   }
 
   .reference {
-    color: #ffd700;
-    font-size: 0.8rem; /* Reduzir o tamanho da fonte da referência */
+    font-size: 0.8rem;
   }
 }
-  </style>
-  
+</style>
