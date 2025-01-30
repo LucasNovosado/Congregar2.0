@@ -1,0 +1,284 @@
+[
+    {
+        "título": "A Esperança que não Decepciona",
+        "livro": "Romanos",
+        "capítulo": 5,
+        "versículo": 5,
+        "texto": "Ora, a esperança não nos deixa decepcionados, porque o amor de Deus é derramado em nosso coração pelo Espírito Santo, que nos foi dado."
+    },
+    {
+        "título": "A Fé é a Certeza",
+        "livro": "Hebreus",
+        "capítulo": 11,
+        "versículo": 1,
+        "texto": "Ora, a fé é a certeza de coisas que se esperam, a convicção de fatos que se não veem."
+    },
+    {
+        "título": "Deus é por Nós",
+        "livro": "Romanos",
+        "capítulo": 8,
+        "versículo": 31,
+        "texto": "Que diremos, então, à vista destas coisas? Se Deus é por nós, quem será contra nós?"
+    },
+    {
+        "título": "Glória Eterna",
+        "livro": "2 Coríntios",
+        "capítulo": 4,
+        "versículo": 17,
+        "texto": "Porque a nossa leve e momentânea tribulação produz para nós eterno peso de glória, acima de toda comparação."
+    },
+    {
+        "título": "O Senhor é Meu Pastor",
+        "livro": "Salmos",
+        "capítulo": 23,
+        "versículo": 1,
+        "texto": "O Senhor é o meu pastor; nada me faltará."
+    },
+    {
+        "título": "Força no Senhor",
+        "livro": "Isaías",
+        "capítulo": 41,
+        "versículo": 10,
+        "texto": "Não tenha medo, porque eu sou com você; não fique assustado, porque eu sou o seu Deus. Eu fortaleço você, ajudo você e o sustento com a minha mão direita fiel."
+    },
+    {
+        "título": "Novo Começo",
+        "livro": "2 Coríntios",
+        "capítulo": 5,
+        "versículo": 17,
+        "texto": "E, assim, se alguém está em Cristo, é nova criatura; as coisas antigas já passaram; eis que se fizeram novas."
+    },
+    {
+        "título": "O Senhor Peleja por Você",
+        "livro": "Êxodo",
+        "capítulo": 14,
+        "versículo": 14,
+        "texto": "O Senhor lutará por vocês; fiquem calmos."
+    },
+    {
+        "título": "O Amor de Deus",
+        "livro": "Romanos",
+        "capítulo": 8,
+        "versículo": 38,
+        "texto": "Porque estou certo de que nem a morte, nem a vida, nem anjos, nem principados, nem coisas do presente, nem do futuro, nem poderes, nem altura, nem profundidade, nem qualquer outra criatura poderá nos separar do amor de Deus, que está em Cristo Jesus, nosso Senhor."
+    },
+    {
+        "título": "Descanso para a Alma",
+        "livro": "Mateus",
+        "capítulo": 11,
+        "versículo": 28,
+        "texto": "Venham a mim todos vocês que estão cansados e sobrecarregados, e eu os aliviarei."
+    },
+    {
+        "título": "Confiança no Senhor",
+        "livro": "Provérbios",
+        "capítulo": 3,
+        "versículo": 5,
+        "texto": "Confie no Senhor de todo o seu coração e não se apoie no seu próprio entendimento."
+    },
+    {
+        "título": "Paz de Deus",
+        "livro": "Filipenses",
+        "capítulo": 4,
+        "versículo": 7,
+        "texto": "E a paz de Deus, que excede todo entendimento, guardará o coração e a mente de vocês em Cristo Jesus."
+    },
+    {
+        "título": "Deus Cuida de Você",
+        "livro": "1 Pedro",
+        "capítulo": 5,
+        "versículo": 7,
+        "texto": "Lançando sobre ele toda a sua ansiedade, porque ele cuida de vocês."
+    },
+    {
+        "título": "Não Temas",
+        "livro": "Josué",
+        "capítulo": 1,
+        "versículo": 9,
+        "texto": "Não fui eu que ordenei a você? Seja forte e corajoso! Não tenha medo, nem fique assustado, porque o Senhor, seu Deus, estará com você por onde quer que você andar."
+    },
+    {
+        "título": "O Senhor é Bom",
+        "livro": "Naum",
+        "capítulo": 1,
+        "versículo": 7,
+        "texto": "O Senhor é bom, é fortaleza no dia da angústia e conhece os que nele se refugiam."
+    },
+    {
+        "título": "O Senhor é Minha Fortaleza",
+        "livro": "Salmos",
+        "capítulo": 27,
+        "versículo": 1,
+        "texto": "O Senhor é a minha luz e a minha salvação; de quem terei medo? O Senhor é a fortaleza da minha vida; a quem temerei?"
+    },
+    {
+        "título": "Fidelidade de Deus",
+        "livro": "Lamentações",
+        "capítulo": 3,
+        "versículo": 22,
+        "texto": "As misericórdias do Senhor são a causa de não sermos consumidos, porque as suas misericórdias não têm fim."
+    },
+    {
+        "título": "O Caminho, a Verdade e a Vida",
+        "livro": "João",
+        "capítulo": 14,
+        "versículo": 6,
+        "texto": "Jesus respondeu: 'Eu sou o caminho, a verdade e a vida; ninguém vem ao Pai senão por mim.'"
+    },
+    {
+        "título": "Nada é Impossível para Deus",
+        "livro": "Lucas",
+        "capítulo": 1,
+        "versículo": 37,
+        "texto": "Porque para Deus não haverá impossíveis em todas as suas promessas."
+    },
+    {
+        "título": "Elevo Meus Olhos",
+        "livro": "Salmos",
+        "capítulo": 121,
+        "versículo": 1,
+        "texto": "Elevo os olhos para os montes: de onde me virá o socorro? O meu socorro vem do Senhor, que fez os céus e a terra."
+    },
+
+     {
+            "título": "A Esperança que não Decepciona",
+            "livro": "Romanos",
+            "capítulo": 5,
+            "versículo": 5,
+            "texto": "Ora, a esperança não nos deixa decepcionados, porque o amor de Deus é derramado em nosso coração pelo Espírito Santo, que nos foi dado."
+        },
+        {
+            "título": "A Fé é a Certeza",
+            "livro": "Hebreus",
+            "capítulo": 11,
+            "versículo": 1,
+            "texto": "Ora, a fé é a certeza de coisas que se esperam, a convicção de fatos que se não veem."
+        },
+        {
+            "título": "Deus é por Nós",
+            "livro": "Romanos",
+            "capítulo": 8,
+            "versículo": 31,
+            "texto": "Que diremos, então, à vista destas coisas? Se Deus é por nós, quem será contra nós?"
+        },
+        {
+            "título": "Glória Eterna",
+            "livro": "2 Coríntios",
+            "capítulo": 4,
+            "versículo": 17,
+            "texto": "Porque a nossa leve e momentânea tribulação produz para nós eterno peso de glória, acima de toda comparação."
+        },
+        {
+            "título": "Força no Senhor",
+            "livro": "Isaías",
+            "capítulo": 40,
+            "versículo": 31,
+            "texto": "Mas os que esperam no Senhor renovam as suas forças, sobem com asas como águias, correm e não se cansam, caminham e não se fatigam."
+        },
+        {
+            "título": "O Senhor é Meu Refúgio",
+            "livro": "Salmos",
+            "capítulo": 46,
+            "versículo": 1,
+            "texto": "Deus é o nosso refúgio e fortaleza, socorro bem presente na angústia."
+        },
+        {
+            "título": "Nada nos Separará do Amor de Deus",
+            "livro": "Romanos",
+            "capítulo": 8,
+            "versículo": 39,
+            "texto": "Nem altura, nem profundidade, nem qualquer outra criatura poderá nos separar do amor de Deus, que está em Cristo Jesus, nosso Senhor."
+        },
+        {
+            "título": "Tudo Posso",
+            "livro": "Filipenses",
+            "capítulo": 4,
+            "versículo": 13,
+            "texto": "Posso todas as coisas naquele que me fortalece."
+        },
+        {
+            "título": "Entrega ao Senhor",
+            "livro": "Salmos",
+            "capítulo": 37,
+            "versículo": 5,
+            "texto": "Entrega o teu caminho ao Senhor, confia nele, e ele tudo fará."
+        },
+        {
+            "título": "O Senhor Peleja por Você",
+            "livro": "Êxodo",
+            "capítulo": 14,
+            "versículo": 14,
+            "texto": "O Senhor lutará por vocês; fiquem calmos."
+        },
+        {
+            "título": "Confie no Senhor",
+            "livro": "Provérbios",
+            "capítulo": 3,
+            "versículo": 5,
+            "texto": "Confie no Senhor de todo o seu coração e não se apoie no seu próprio entendimento."
+        },
+        {
+            "título": "A Paz de Cristo",
+            "livro": "João",
+            "capítulo": 14,
+            "versículo": 27,
+            "texto": "Deixo com vocês a paz, a minha paz lhes dou; não lhes dou a paz como o mundo a dá. Não fiquem aflitos, nem tenham medo."
+        },
+        {
+            "título": "O Senhor Está com Você",
+            "livro": "Josué",
+            "capítulo": 1,
+            "versículo": 9,
+            "texto": "Não fui eu que lhe ordenei? Seja forte e corajoso! Não tenha medo nem fique assustado, porque o Senhor, seu Deus, estará com você por onde quer que você andar."
+        },
+        {
+            "título": "Deus é o Nosso Socorro",
+            "livro": "Salmos",
+            "capítulo": 121,
+            "versículo": 1,
+            "texto": "Elevo os olhos para os montes: de onde me virá o socorro?"
+        },
+        {
+            "título": "O Senhor é Bom",
+            "livro": "Salmos",
+            "capítulo": 34,
+            "versículo": 8,
+            "texto": "Provem e vejam que o Senhor é bom; como é feliz o homem que nele se refugia!"
+        },
+        {
+            "título": "O Amor de Deus",
+            "livro": "1 João",
+            "capítulo": 4,
+            "versículo": 18,
+            "texto": "No amor não existe medo; pelo contrário, o perfeito amor lança fora o medo."
+        },
+        {
+            "título": "Deus Cumpre Suas Promessas",
+            "livro": "2 Coríntios",
+            "capítulo": 1,
+            "versículo": 20,
+            "texto": "Porque quantas forem as promessas de Deus, nele está o ‘sim’."
+        },
+        {
+            "título": "O Senhor é Meu Pastor",
+            "livro": "Salmos",
+            "capítulo": 23,
+            "versículo": 1,
+            "texto": "O Senhor é o meu pastor; nada me faltará."
+        },
+        {
+            "título": "Ele Tem Planos para Você",
+            "livro": "Jeremias",
+            "capítulo": 29,
+            "versículo": 11,
+            "texto": "Porque eu é que sei os planos que tenho para vocês, diz o Senhor, planos de paz e não de mal, para lhes dar um futuro e uma esperança."
+        },
+        {
+            "título": "Aquele que Começou a Boa Obra",
+            "livro": "Filipenses",
+            "capítulo": 1,
+            "versículo": 6,
+            "texto": "Estou certo de que aquele que começou boa obra em vocês há de completá-la até o Dia de Cristo Jesus."
+        }
+    ]
+    
