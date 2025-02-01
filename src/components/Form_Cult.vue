@@ -51,14 +51,16 @@
               class="input-field"
               placeholder="Ex: Vila Nova I"
               @input="handleLocationInput"
+              @blur="handleBlur('location')"
+              @focus="handleFocus('location')"
               autocomplete="off"
             >
-            <div v-if="suggestions.location.length > 0" class="suggestions-list">
+            <div v-if="showSuggestions.location && suggestions.location.length > 0" class="suggestions-list">
               <div 
                 v-for="suggestion in suggestions.location" 
                 :key="suggestion"
                 class="suggestion-item"
-                @click="selectSuggestion('location', suggestion)"
+                @mousedown.prevent="selectSuggestion('location', suggestion)"
               >
                 {{ suggestion }}
               </div>
@@ -77,14 +79,16 @@
               class="input-field"
               placeholder="Ex: Ir. Nivaldo"
               @input="handleServiceInput"
+              @blur="handleBlur('service')"
+              @focus="handleFocus('service')"
               autocomplete="off"
             >
-            <div v-if="suggestions.service.length > 0" class="suggestions-list">
+            <div v-if="showSuggestions.service && suggestions.service.length > 0" class="suggestions-list">
               <div 
                 v-for="suggestion in suggestions.service" 
                 :key="suggestion"
                 class="suggestion-item"
-                @click="selectSuggestion('service', suggestion)"
+                @mousedown.prevent="selectSuggestion('service', suggestion)"
               >
                 {{ suggestion }}
               </div>
@@ -115,14 +119,16 @@
               class="input-field"
               placeholder="Ex: Ir. Joelson"
               @input="handlePreachingInput"
+              @blur="handleBlur('preaching')"
+              @focus="handleFocus('preaching')"
               autocomplete="off"
             >
-            <div v-if="suggestions.preaching.length > 0" class="suggestions-list">
+            <div v-if="showSuggestions.preaching && suggestions.preaching.length > 0" class="suggestions-list">
               <div 
                 v-for="suggestion in suggestions.preaching" 
                 :key="suggestion"
                 class="suggestion-item"
-                @click="selectSuggestion('preaching', suggestion)"
+                @mousedown.prevent="selectSuggestion('preaching', suggestion)"
               >
                 {{ suggestion }}
               </div>
@@ -180,6 +186,11 @@ export default {
         service: [],
         preaching: []
       },
+      showSuggestions: {
+        location: false,
+        service: false,
+        preaching: false
+      },
       cultTypes: [
         'Culto Oficial',
         'Culto Online',
@@ -232,23 +243,47 @@ export default {
       }
     },
 
+    handleFocus(field) {
+      if (this.formData[field].length >= 3) {
+        this.handleFieldInput(field);
+        this.showSuggestions[field] = true;
+      }
+    },
+
+    handleBlur(field) {
+      setTimeout(() => {
+        this.showSuggestions[field] = false;
+      }, 150);
+    },
+
     handleLocationInput() {
       this.handleFieldInput('location');
+      this.showSuggestions.location = true;
     },
+
     handleServiceInput() {
       this.handleFieldInput('service');
+      this.showSuggestions.service = true;
     },
+
     handlePreachingInput() {
       this.handleFieldInput('preaching');
+      this.showSuggestions.preaching = true;
     },
 
     selectSuggestion(field, value) {
       this.formData[field] = value;
       this.suggestions[field] = [];
+      this.showSuggestions[field] = false;
     },
 
     async handleSubmit() {
       try {
+        if (!this.validateForm()) {
+          Toast.fail('Por favor, preencha todos os campos obrigatórios.');
+          return;
+        }
+
         const loading = Toast.loading({
           message: 'Salvando...',
           forbidClick: true,
@@ -265,12 +300,13 @@ export default {
             cultId: this.editData.id,
             cultData: processedData
           });
+          Toast.success('Culto atualizado com sucesso!');
         } else {
           await this.$store.dispatch('addCult', processedData);
+          Toast.success('Culto registrado com sucesso!');
         }
         
         loading.clear();
-        Toast.success('Culto registrado com sucesso!');
         this.$emit('submit-success');
       } catch (error) {
         console.error('Erro detalhado:', error.message, error.stack);
@@ -305,6 +341,8 @@ export default {
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   animation: fadeIn 0.8s ease-out forwards;
   animation-delay: 0.4s;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
 .cult-form {
@@ -323,6 +361,7 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  width: 100%;
 }
 
 .full-width {
@@ -337,6 +376,7 @@ label {
 }
 
 .input-field, .select-field, .textarea-field {
+  width: 100%;
   padding: 0.75rem;
   border: 2px solid rgba(255, 255, 255, 0.2);
   border-radius: 8px;
@@ -344,6 +384,7 @@ label {
   background: rgba(255, 255, 255, 0.1) !important;
   color: #ffffff;
   transition: all 0.3s ease;
+  box-sizing: border-box;
 }
 
 .input-field:focus,
@@ -370,6 +411,7 @@ label {
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   align-self: center;
+  min-width: 200px;
 }
 
 .submit-button:hover {
@@ -414,25 +456,12 @@ label {
 }
 
 .select-field {
-  padding: 0.75rem;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  border-radius: 8px;
-  font-size: 1rem;
-  background: rgba(255, 255, 255, 0.1);
-  color: #ffffff;
-  transition: all 0.3s ease;
   appearance: none;
   background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffd700' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
   background-repeat: no-repeat;
   background-position: right 0.75rem center;
   background-size: 1em;
   padding-right: 2.5rem;
-}
-
-.select-field:focus {
-  border-color: #ffd700;
-  box-shadow: 0 0 0 3px rgba(81, 185, 255, 0.1);
-  outline: none;
 }
 
 .select-field option {
@@ -446,11 +475,6 @@ label {
   font-style: italic;
   font-size: 0.9rem;
   line-height: 1.4;
-}
-
-.textarea-field:focus::placeholder {
-  opacity: 0.7;
-  transition: opacity 0.3s ease;
 }
 
 .suggestions-list::-webkit-scrollbar {
