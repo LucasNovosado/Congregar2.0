@@ -293,27 +293,67 @@ border-radius: 3px;
 }
 
 @media (max-width: 768px) {
-  .detail-primary,
-  .detail-secondary {
+  .popup-content {
+    width: 95%;
+    max-height: 85vh;
+  }
+
+  .item-content {
     flex-direction: column;
-    align-items: flex-start;
     gap: 5px;
   }
-  
-  .detail-location,
-  .detail-holy-word {
+
+  /* Mantendo o layout horizontal mesmo no mobile */
+  .detail-primary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     width: 100%;
   }
 
-.popup-content {
-  width: 95%;
-  max-height: 85vh;
-}
+  .detail-secondary {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+  }
 
-.item-content {
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 5px;
-}
+  /* Ajustando tamanhos de fonte para melhor legibilidade em telas pequenas */
+  .detail-cult {
+    font-size: 1rem;
+  }
+
+  .detail-date {
+    font-size: 0.85rem;
+    white-space: nowrap; /* Evita quebra da data */
+  }
+
+  .detail-location {
+    flex: 1;
+    font-size: 0.9rem;
+    padding: 3px 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .detail-holy-word {
+    flex: 1;
+    font-size: 0.9rem;
+    padding: 3px 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Ajustando espaçamentos para telas menores */
+  .detail-row {
+    gap: 6px;
+    padding: 10px 0;
+  }
+
+  .list-item {
+    padding: 12px;
+  }
 }
 </style>
