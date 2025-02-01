@@ -199,7 +199,9 @@ export default {
         'Batismo',
         'Reunião Ministerial',
         'Reunião Administrativa',
-        'Ensaio Regional'
+        'Ensaio Regional',
+        'Culto Familiar',
+        'Funeral'
       ]
     }
   },
