@@ -336,8 +336,22 @@ methods: {
   }
   
   @media (max-width: 600px) {
-    .cards-container {
-      grid-template-columns: 1fr;
-    }
+  .cards-container {
+    grid-template-columns: 1fr;
+    padding: 10px;
   }
+  
+  .action-buttons {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .edit-btn, .delete-btn {
+    flex: 1 1 calc(50% - 4px);
+  }
+
+  .share-btn {
+    flex: 1 1 100%;
+  }
+}
   </style>
