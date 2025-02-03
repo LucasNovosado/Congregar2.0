@@ -1,121 +1,125 @@
 # Share_Cult_Popup.vue
+
 <template>
-    <div v-if="isVisible" class="popup-overlay" @click.self="$emit('close')">
-      <div class="popup-content" ref="popupContent" :class="{ 'is-sharing': sharing }">
-        <div class="cult-card">
-          <div class="cult-header">
-            <h3>Culto n°: {{ cultNumber }}</h3>
-            <span class="cult-type">{{ cult.typeCult }}</span>
+  <div v-if="isVisible" class="popup-overlay" @click.self="$emit('close')">
+    <div class="popup-content" ref="popupContent" :class="{ 'is-sharing': sharing }">
+      <div class="cult-card">
+        <div class="cult-header">
+          <h3>Culto n°: {{ cultNumber }}</h3>
+          <span class="cult-type">{{ cult.typeCult }}</span>
+        </div>
+
+        <div class="cult-content">
+          <div class="info-row">
+            <span class="label">Data:</span>
+            <span class="value">{{ formatDate(cult.date) }}</span>
           </div>
-  
-          <div class="cult-content">
-            <div class="info-row">
-              <span class="label">Data:</span>
-              <span class="value">{{ formatDate(cult.date) }}</span>
-            </div>
-  
-            <div class="info-row">
-              <span class="label">Local:</span>
-              <span class="value">{{ cult.location }}</span>
-            </div>
-  
-            <div class="info-row">
-              <span class="label">Atendimento:</span>
-              <span class="value">{{ cult.service }}</span>
-            </div>
-  
-            <div class="info-row">
-              <span class="label">Palavra:</span>
-              <span class="value">{{ cult.hollyWord }}</span>
-            </div>
-  
-            <div class="info-row">
-              <span class="label">Revelado ao:</span>
-              <span class="value">{{ cult.preaching }}</span>
-            </div>
-  
-            <div class="exhortation-section">
-              <span class="label">Exortação:</span>
-              <p class="exhortation-text">{{ cult.exhortation }}</p>
-            </div>
+
+          <div class="info-row">
+            <span class="label">Local:</span>
+            <span class="value">{{ cult.location }}</span>
           </div>
-  
-          <div class="action-buttons" v-if="!sharing">
-            <button class="share-btn" @click="handleShare">
-              <van-loading v-if="sharing" size="20px" color="#ffffff" />
-              <span v-else>Enviar</span>
-            </button>
-            <button class="close-btn" @click="$emit('close')">Fechar</button>
+
+          <div class="info-row">
+            <span class="label">Atendimento:</span>
+            <span class="value">{{ cult.service }}</span>
           </div>
+
+          <div class="info-row">
+            <span class="label">Palavra:</span>
+            <span class="value">{{ cult.hollyWord }}</span>
+          </div>
+
+          <div class="info-row">
+            <span class="label">Revelado ao:</span>
+            <span class="value">{{ cult.preaching }}</span>
+          </div>
+
+          <div class="exhortation-section">
+            <span class="label">Exortação:</span>
+            <p class="exhortation-text">{{ cult.exhortation }}</p>
+          </div>
+        </div>
+
+        <div class="action-buttons" v-if="!sharing">
+          <button class="share-btn" @click="handleShare">
+            <van-loading v-if="sharing" size="20px" color="#ffffff" />
+            <span v-else>Enviar</span>
+          </button>
+          <button class="close-btn" @click="$emit('close')">Fechar</button>
         </div>
       </div>
     </div>
-  </template>
-  
-  <script>
-  import { format } from 'date-fns';
-  import { Loading as VanLoading, Toast } from 'vant';
-  import cultService from '@/services/cultService';
-  
-  export default {
-    name: 'ShareCultPopup',
-    components: {
-      VanLoading
+  </div>
+</template>
+
+<script>
+import { format } from 'date-fns';
+import { Loading as VanLoading, Toast } from 'vant';
+import cultService from '@/services/cultService';
+
+export default {
+  name: 'ShareCultPopup',
+  components: {
+    VanLoading
+  },
+  props: {
+    isVisible: {
+      type: Boolean,
+      required: true
     },
-    props: {
-      isVisible: {
-        type: Boolean,
-        required: true
-      },
-      cult: {
-        type: Object,
-        required: true
-      },
-      cultNumber: {
-        type: Number,
-        required: true
-      }
+    cult: {
+      type: Object,
+      required: true
     },
-    data() {
-      return {
-        sharing: false
-      };
+    cultNumber: {
+      type: Number,
+      required: true
+    }
+  },
+  data() {
+    return {
+      sharing: false
+    };
+  },
+  methods: {
+    formatDate(date) {
+      return format(new Date(date), 'dd/MM/yyyy');
     },
-    methods: {
-      formatDate(date) {
-        return format(new Date(date), 'dd/MM/yyyy');
-      },
-      async handleShare() {
-        try {
-          this.sharing = true;
-          // Aguarda um pequeno delay para garantir que a UI atualize antes de gerar a imagem
-          await new Promise(resolve => setTimeout(resolve, 100));
-          const canvas = await cultService.generateSummaryImage(this.$refs.popupContent);
+    async handleShare() {
+      try {
+        this.sharing = true;
+        await new Promise(resolve => setTimeout(resolve, 100));
+        const canvas = await cultService.generateSummaryImage(this.$refs.popupContent);
+        
+        // Tenta usar a Web Share API primeiro
+        if (navigator.share) {
+          const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+          const file = new File([blob], 'culto.png', { type: 'image/png' });
+          
+          await navigator.share({
+            files: [file],
+            title: `Culto nº ${this.cultNumber}`,
+            text: 'Compartilhando detalhes do culto'
+          });
+        } else {
+          // Fallback para o método tradicional
           await cultService.shareImage(canvas);
-          Toast.success('Imagem compartilhada com sucesso!');
-        } catch (error) {
-          console.error('Erro ao compartilhar:', error);
-          Toast.fail('Erro ao compartilhar imagem');
-        } finally {
-          this.sharing = false;
         }
+        
+        Toast.success('Compartilhado com sucesso!');
+      } catch (error) {
+        console.error('Erro ao compartilhar:', error);
+        Toast.fail('Erro ao compartilhar imagem');
+      } finally {
+        this.sharing = false;
       }
     }
-  };
-  </script>
-  
+  }
+};
+</script>
 
 <style scoped>
-
-.is-sharing .action-buttons {
-  display: none !important;
-}
-
-/* Adicione mais margem inferior quando estiver compartilhando para compensar os botões ausentes */
-.is-sharing .cult-card {
-  margin-bottom: 20px;
-}
-
 .popup-overlay {
   position: fixed;
   top: 0;
@@ -125,8 +129,9 @@
   background: rgba(0, 0, 0, 0.7);
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   z-index: 1000;
+  overflow-y: auto;
 }
 
 .popup-content {
@@ -134,6 +139,7 @@
   max-width: 500px;
   padding: 20px;
   border-radius: 15px;
+  margin: 20px auto;
 }
 
 .cult-card {
@@ -230,5 +236,35 @@
 .share-btn:hover, .close-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.is-sharing .action-buttons {
+  display: none !important;
+}
+
+.is-sharing .cult-card {
+  margin-bottom: 20px;
+}
+
+@media (max-width: 600px) {
+  .popup-overlay {
+    padding: 0;
+  }
+
+  .popup-content {
+    width: 100%;
+    margin: 0;
+    min-height: 100vh;
+    border-radius: 0;
+  }
+
+  .cult-card {
+    border-radius: 0;
+    min-height: 100vh;
+  }
+  
+  .exhortation-text {
+    padding-bottom: 80px; /* Espaço extra para o conteúdo não ficar sob os botões no mobile */
+  }
 }
 </style>
