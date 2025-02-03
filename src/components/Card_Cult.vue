@@ -39,13 +39,16 @@
       </div>
 
       <div class="action-buttons">
-        <button class="edit-btn" @click="handleEdit(cult)">
-          <van-icon name="edit" /> Editar
-        </button>
-        <button class="delete-btn" @click="confirmDelete(cult.id)">
-          <van-icon name="delete" /> Remover
-        </button>
-      </div>
+  <button class="edit-btn" @click="handleEdit(cult)">
+    <van-icon name="edit" /> Editar
+  </button>
+  <button class="share-btn" @click="handleShare(cult, getCultNumber(cult))">
+    <van-icon name="share" /> Compartilhar
+  </button>
+  <button class="delete-btn" @click="confirmDelete(cult.id)">
+    <van-icon name="delete" /> Remover
+  </button>
+</div>
     </div>
   </div>
 
@@ -116,6 +119,11 @@ methods: {
   formatDate(date) {
     return format(new Date(date), 'dd/MM/yyyy');
   },
+
+  handleShare(cult, cultNumber) {
+  this.$emit('share', { cult, cultNumber });
+},
+
   async confirmDelete(cultId) {
     try {
       await Dialog.confirm({
@@ -145,6 +153,27 @@ methods: {
 </script>
   
   <style scoped>
+
+.share-btn {
+  background: #4a90e2;
+  color: white;
+  flex: 1;
+  padding: 8px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.share-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
 
 .load-more-container {
   display: flex;
