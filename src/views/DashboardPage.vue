@@ -1,7 +1,7 @@
 <template>
   <div class="dashboard-container">
     <TopHeader />
-    <div class="content-wrapper" :class="{ 'blur': isPopupVisible }">
+    <div class="content-wrapper" :class="{ 'blur': isPopupVisible || isSharePopupVisible }">
       <main class="dashboard-content">
         <h1>Memórias do Caminho</h1>
         <h2 class="dashboard-subtitle">
@@ -15,7 +15,7 @@
         </div>
         <CardStatistic @popup-opened="handlePopupOpen" @popup-closed="handlePopupClose" />
         <h1>Lista de Cultos</h1>
-        <CardCult :cults="getCults" @edit="handleEdit" @delete="handleDelete" />
+        <CardCult :cults="getCults" @edit="handleEdit" @delete="handleDelete" @share="handleShare" />
         
       </main>
       <div class="add-button-wrapper">
@@ -31,6 +31,13 @@
       :field="popupData.field"
       @close="handlePopupClose"
     />
+    <ShareCultPopup
+      v-if="sharePopupData.isVisible"
+      :isVisible="sharePopupData.isVisible"
+      :cult="sharePopupData.cult"
+      :cultNumber="sharePopupData.cultNumber"
+      @close="handleSharePopupClose"
+    />
   </div>
 </template>
  
@@ -44,6 +51,7 @@
  import CardCult from '@/components/Card_Cult.vue';
  import AddButton from '@/components/Add_Button.vue';
  import PopupStatistic from '@/components/Popup_Statistic.vue';
+ import ShareCultPopup from '@/components/Share_Cult_Popup.vue';
 
  
  export default {
@@ -55,11 +63,17 @@
         title: '',
         items: [],
         field: ''
+      },
+      sharePopupData: {
+        isVisible: false,
+        cult: null,
+        cultNumber: null
       }
     }
   },
   name: 'DashboardPage',
   components: {
+    ShareCultPopup,
     PopupStatistic,
     TopHeader,
     BibleVerse,
@@ -73,7 +87,23 @@
     ...mapGetters(['getCults'])
   },
   methods: {
+
+    handleShare({ cult, cultNumber }) {
+      this.sharePopupData = {
+        isVisible: true,
+        cult,
+        cultNumber
+      };
+    },
     
+    handleSharePopupClose() {
+      this.sharePopupData = {
+        isVisible: false,
+        cult: null,
+        cultNumber: null
+      };
+    },
+
     handlePopupOpen(data) {
       this.isPopupVisible = true;
       this.popupData = {
@@ -100,10 +130,16 @@
   async created() {
     await this.fetchCults();
   }
+  
  };
  </script>
 
 <style scoped>
+
+.blur {
+  filter: blur(4px);
+  pointer-events: none;
+}
 
 .add-button-wrapper {
   position: fixed;
@@ -146,9 +182,6 @@
   top: -15px;
 }
 
-.dashboard-subtitle::after {
-  bottom: -15px;
-}
 
 @media (max-width: 768px) {
   .dashboard-subtitle {
