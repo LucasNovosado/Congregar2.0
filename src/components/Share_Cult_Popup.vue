@@ -87,49 +87,34 @@ export default {
       return format(new Date(date), 'dd/MM/yyyy');
     },
     async handleShare() {
-  try {
-    this.sharing = true;
-    // Aguarda a UI atualizar
-    await new Promise(resolve => setTimeout(resolve, 100));
-
-    // Gera a imagem
-    const canvas = await cultService.generateSummaryImage(this.$refs.popupContent);
-    if (!canvas) {
-      throw new Error('Falha ao gerar imagem');
+      try {
+        this.sharing = true;
+        await new Promise(resolve => setTimeout(resolve, 100));
+        const canvas = await cultService.generateSummaryImage(this.$refs.popupContent);
+        
+        // Tenta usar a Web Share API primeiro
+        if (navigator.share) {
+          const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+          const file = new File([blob], 'culto.png', { type: 'image/png' });
+          
+          await navigator.share({
+            files: [file],
+            title: `Culto nº ${this.cultNumber}`,
+            text: `Compartilhando detalhes do culto nº ${this.cultNumber}`
+        });
+        } else {
+          // Fallback para o método tradicional
+          await cultService.shareImage(canvas);
+        }
+        
+        Toast.success('Compartilhado com sucesso!');
+      } catch (error) {
+        console.error('Erro ao compartilhar:', error);
+        Toast.fail('Erro ao compartilhar imagem');
+      } finally {
+        this.sharing = false;
+      }
     }
-
-    // Tenta compartilhar
-    const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/png', 1.0));
-    if (!blob) {
-      throw new Error('Falha ao processar imagem');
-    }
-
-    const file = new File([blob], 'culto.png', { type: 'image/png' });
-
-    // Verifica suporte ao compartilhamento
-    if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
-      await navigator.share({
-        files: [file],
-        title: `Culto nº ${this.cultNumber}`,
-        text: 'Compartilhando detalhes do culto'
-      });
-      Toast.success('Compartilhado com sucesso!');
-    } else {
-      // Usa o método alternativo
-      await cultService.shareImage(canvas);
-      Toast.success('Imagem salva com sucesso!');
-    }
-  } catch (error) {
-    console.error('Erro ao compartilhar:', error);
-    if (error.name === 'AbortError') {
-      // Usuário cancelou o compartilhamento
-      return;
-    }
-    Toast.fail(error.message || 'Erro ao compartilhar imagem');
-  } finally {
-    this.sharing = false;
-  }
-}
   }
 };
 </script>
