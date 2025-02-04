@@ -114,7 +114,7 @@ export default {
           await navigator.share({
             files: [file],
             title: `Culto nº ${this.cultNumber}`,
-            text: `Compartilhando detalhes do culto nº ${this.cultNumber}`
+            text: `Compartilhando detalhes do culto do dia ${this.formatDate(this.cult.date)}`,
         });
         } else {
           // Fallback para o método tradicional
