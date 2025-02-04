@@ -164,41 +164,6 @@ export default {
     }
   },
 
-  async shareImage(canvas) {
-    try {
-      const blob = await new Promise((resolve) => {
-        canvas.toBlob(resolve, 'image/png', 1.0);
-      });
-
-      if (!blob) {
-        throw new Error('Falha ao processar a imagem');
-      }
-
-      const file = new File([blob], 'culto.png', { type: 'image/png' });
-
-      // Verifica se o navegador suporta compartilhamento de arquivos
-      if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
-        await navigator.share({
-          files: [file],
-          title: 'Detalhes do Culto',
-          text: 'Compartilhando informações do culto'
-        });
-      } else {
-        // Fallback para download
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'culto.png';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-      }
-    } catch (error) {
-      console.error('Erro ao compartilhar:', error);
-      if (error.name !== 'AbortError') { // Ignora erro quando usuário cancela compartilhamento
-        throw new Error('Não foi possível compartilhar a imagem');
-      }
-    }
-  }
+  
+  
 };
