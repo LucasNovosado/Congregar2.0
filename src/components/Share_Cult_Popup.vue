@@ -1,71 +1,57 @@
 # Share_Cult_Popup.vue
 
 <template>
-    <div v-if="isVisible" class="popup-overlay" @click.self="$emit('close')">
-      <div class="popup-content" ref="popupContent" :class="{ 'is-sharing': sharing }">
-        <div class="cult-card">
-          <div class="cult-header">
-            <div class="header-content">
-              <h3>Culto n°: {{ cultNumber }}</h3>
-              <div class="cult-type-badge">{{ cult.typeCult }}</div>
-            </div>
-            <div class="decorative-line"></div>
-          </div>
-  
-          <div class="cult-content">
-            <div class="info-grid">
-              <div class="info-item">
-                <span class="label">Data:</span>
-                <span class="value">{{ formatDate(cult.date) }}</span>
-              </div>
-  
-              <div class="info-item">
-                <span class="label">Local:</span>
-                <span class="value">{{ cult.location }}</span>
-              </div>
-  
-              <div class="info-item">
-                <span class="label">Atendimento:</span>
-                <span class="value">{{ cult.service }}</span>
-              </div>
-  
-  
-              <div class="info-item">
-                <span class="label">Revelado ao:</span>
-                <span class="value">{{ cult.preaching }}</span>
-              </div>
-            </div>
-  
-            <div class="info-item">
-                <span class="label">Palavra:</span>
-                <span class="value">{{ cult.hollyWord }}</span>
-              </div>
+  <div v-if="isVisible" class="popup-overlay" @click.self="$emit('close')">
+    <div class="popup-content" ref="popupContent" :class="{ 'is-sharing': sharing }">
+      <div class="cult-card">
+        <div class="cult-header">
+          <h3>Culto n°: {{ cultNumber }}</h3>
+          <span class="cult-type">{{ cult.typeCult }}</span>
+        </div>
 
-            <div class="exhortation-section">
-              <div class="exhortation-header">
-                <span class="label">Exortação</span>
-              </div>
-              <div class="exhortation-container">
-                <p class="exhortation-text">{{ cult.exhortation }}</p>
-              </div>
-            </div>
+        <div class="cult-content">
+          <div class="info-row">
+            <span class="label">Data:</span>
+            <span class="value">{{ formatDate(cult.date) }}</span>
           </div>
-  
-          <div class="action-buttons" v-if="!sharing">
-            <button class="share-btn" @click="handleShare">
-              <van-loading v-if="sharing" size="20px" color="#ffffff" />
-              <span v-else>
-                Enviar
-              </span>
-            </button>
-            <button class="close-btn" @click="$emit('close')">
-              Fechar
-            </button>
+
+          <div class="info-row">
+            <span class="label">Local:</span>
+            <span class="value">{{ cult.location }}</span>
           </div>
+
+          <div class="info-row">
+            <span class="label">Atendimento:</span>
+            <span class="value">{{ cult.service }}</span>
+          </div>
+
+          <div class="info-row">
+            <span class="label">Palavra:</span>
+            <span class="value">{{ cult.hollyWord }}</span>
+          </div>
+
+          <div class="info-row">
+            <span class="label">Revelado ao:</span>
+            <span class="value">{{ cult.preaching }}</span>
+          </div>
+
+          <div class="exhortation-section">
+            <span class="label">Exortação:</span>
+            <p class="exhortation-text">{{ cult.exhortation }}</p>
+          </div>
+        </div>
+
+        <div class="action-buttons" v-if="!sharing">
+          <button class="share-btn" @click="handleShare">
+            <van-loading v-if="sharing" size="20px" color="#ffffff" />
+            <span v-else>Enviar</span>
+          </button>
+          <button class="close-btn" @click="$emit('close')">Fechar</button>
         </div>
       </div>
     </div>
-  </template>
+  </div>
+</template>
 
 <script>
 import { format } from 'date-fns';
@@ -140,212 +126,145 @@ export default {
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, rgba(0,0,0,0.85) 0%, rgba(26,42,108,0.95) 100%);
+  background: rgba(0, 0, 0, 0.7);
   display: flex;
   justify-content: center;
   align-items: flex-start;
   z-index: 1000;
   overflow-y: auto;
-  backdrop-filter: blur(8px);
 }
 
 .popup-content {
   width: 90%;
-  max-width: 550px;
-  margin: 30px auto;
-  perspective: 1000px;
+  max-width: 500px;
+  padding: 20px;
+  border-radius: 15px;
+  margin: 20px auto;
 }
 
 .cult-card {
-  background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
-  backdrop-filter: blur(12px);
-  border-radius: 24px;
-  padding: 30px;
-  box-shadow: 0 8px 32px rgba(31,38,135,0.2);
-  border: 1px solid rgba(255,255,255,0.18);
-  transform-style: preserve-3d;
-  transition: transform 0.3s ease;
-}
-
-.cult-card:hover {
-  transform: translateY(-5px) rotateX(2deg);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 .cult-header {
-  margin-bottom: 30px;
-}
-
-.header-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .cult-header h3 {
   color: #ffd700;
-  font-size: 1.8rem;
-  font-weight: 700;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  font-size: 1.4rem;
   margin: 0;
 }
 
-.decorative-line {
-  height: 3px;
-  background: linear-gradient(90deg, #ffd700 0%, rgba(255,215,0,0.2) 100%);
-  border-radius: 2px;
-}
-
-.cult-type-badge {
-  background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
-  padding: 8px 16px;
+.cult-type {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 5px 10px;
   border-radius: 20px;
   font-size: 0.9rem;
-  color: white;
-  font-weight: 500;
-  box-shadow: 0 2px 8px rgba(74,144,226,0.3);
+  color: #fff;
 }
 
-.info-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-  margin-bottom: 30px;
-}
-
-.info-item {
+.info-row {
   display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px;
-  background: rgba(255,255,255,0.05);
-  border-radius: 12px;
-  transition: transform 0.2s ease;
-}
-
-.info-item:hover {
-  transform: translateY(-2px);
-  background: rgba(255,255,255,0.08);
-}
-
-.info-icon {
-  font-size: 1.2rem;
-  min-width: 24px;
-  text-align: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding: 5px 0;
 }
 
 .label {
   color: #90caf9;
   font-weight: 500;
-  font-size: 0.9rem;
 }
 
 .value {
-  color: white;
-  margin-left: auto;
-  font-weight: 400;
+  color: #fff;
+  text-align: right;
 }
 
 .exhortation-section {
-  background: rgba(255,255,255,0.05);
-  border-radius: 16px;
-  padding: 20px;
-  margin-top: 20px;
-}
-
-.exhortation-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 15px;
-}
-
-.exhortation-container {
-  background: rgba(0,0,0,0.2);
-  border-radius: 12px;
-  padding: 20px;
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .exhortation-text {
   color: #fff;
-  line-height: 1.6;
+  margin-top: 8px;
+  line-height: 1.5;
   text-align: justify;
-  margin: 0;
-  font-size: 1rem;
 }
 
 .action-buttons {
   display: flex;
-  gap: 15px;
-  margin-top: 30px;
+  gap: 10px;
+  margin-top: 20px;
 }
 
 .share-btn, .close-btn {
   flex: 1;
-  padding: 14px;
-  border-radius: 12px;
+  padding: 12px;
+  border-radius: 8px;
   border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  font-size: 1rem;
-  font-weight: 600;
+  gap: 5px;
   transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.share-btn {
-  background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+  font-weight: 500;
   color: white;
 }
 
+.share-btn {
+  background: #4a90e2;
+}
+
 .close-btn {
-  background: rgba(255,255,255,0.1);
-  color: #fff;
+  background: #666;
 }
 
 .share-btn:hover, .close-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-.share-btn:active, .close-btn:active {
-  transform: translateY(0);
+.is-sharing .action-buttons {
+  display: none !important;
+}
+
+.is-sharing .cult-card {
+  margin-bottom: 20px;
 }
 
 @media (max-width: 600px) {
+  .popup-overlay {
+    padding: 0;
+  }
+
   .popup-content {
     width: 100%;
     margin: 0;
     min-height: 100vh;
+    border-radius: 0;
   }
 
   .cult-card {
     border-radius: 0;
     min-height: 100vh;
   }
-
-  .info-grid {
-    grid-template-columns: 1fr;
-  }
   
   .exhortation-text {
-    padding-bottom: 100px;
-  }
-
-  .action-buttons {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 20px;
-    background: rgba(0,0,0,0.8);
-    backdrop-filter: blur(10px);
-    margin: 0;
-    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 80px; /* Espaço extra para o conteúdo não ficar sob os botões no mobile */
   }
 }
 </style>
