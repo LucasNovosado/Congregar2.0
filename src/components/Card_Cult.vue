@@ -214,144 +214,174 @@ methods: {
 
   /* Estilos permanecem os mesmos */
   .cards-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-    padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding: 20px;
+}
+
+.cult-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  min-height: 500px; /* Altura mínima para uniformidade */
+}
+
+.cult-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(31, 38, 135, 0.25);
+}
+
+.cult-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.cult-content {
+  flex: 1; /* Faz o conteúdo ocupar todo espaço disponível */
+  display: flex;
+  flex-direction: column;
+}
+
+.cult-header h3 {
+  color: #ffd700;
+  font-size: 1.4rem;
+  margin: 0;
+}
+
+.cult-type {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  color: #fff;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding: 5px 0;
+}
+
+.label {
+  color: #90caf9;
+  font-weight: 500;
+}
+
+.value {
+  color: #fff;
+  text-align: right;
+}
+
+.exhortation-section {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  flex: 1; /* Permite que a seção de exortação cresça */
+  display: flex;
+  flex-direction: column;
+}
+
+.exhortation-text {
+  color: #fff;
+  margin-top: 8px;
+  line-height: 1.5;
+  text-align: justify;
+  overflow-y: auto; /* Adiciona scroll se necessário */
+  flex: 1; /* Permite que o texto cresça dentro da seção */
+}
+
+.action-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.edit-btn,
+.delete-btn,
+.share-btn {
+  background: #4a90e2;
+  color: white;
+  flex: 1;
+  padding: 8px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  height: 36px; /* Altura fixa para os botões */
+}
+
+.edit-btn {
+  background: #4caf50;
+  color: white;
+}
+
+.delete-btn {
+  background: #f44336;
+  color: white;
+}
+
+.edit-btn:hover,
+.delete-btn:hover,
+.share-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilos responsivos */
+@media (max-width: 1200px) {
+  .cards-container {
+    grid-template-columns: repeat(3, 1fr);
   }
-  
-  .cult-card {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border-radius: 15px;
-    padding: 20px;
-    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+@media (max-width: 900px) {
+  .cards-container {
+    grid-template-columns: repeat(2, 1fr);
   }
-  
-  .cult-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 40px rgba(31, 38, 135, 0.25);
-  }
-  
-  .cult-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  }
-  
-  .cult-header h3 {
-    color: #ffd700;
-    font-size: 1.4rem;
-    margin: 0;
-  }
-  
-  .cult-type {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 5px 10px;
-    border-radius: 20px;
-    font-size: 0.9rem;
-    color: #fff;
-  }
-  
-  .info-row {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-    padding: 5px 0;
-  }
-  
-  .label {
-    color: #90caf9;
-    font-weight: 500;
-  }
-  
-  .value {
-    color: #fff;
-    text-align: right;
-  }
-  
-  .exhortation-section {
-    margin-top: 15px;
-    padding-top: 15px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-  }
-  
-  .exhortation-text {
-    color: #fff;
-    margin-top: 8px;
-    line-height: 1.5;
-    text-align: justify;
-  }
-  
-  .action-buttons {
-    display: flex;
-    gap: 10px;
-    margin-top: 20px;
-  }
-  
-  .edit-btn, .delete-btn {
-    flex: 1;
-    padding: 8px;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-    transition: all 0.3s ease;
-    font-weight: 500;
-  }
-  
-  .edit-btn {
-    background: #4caf50;
-    color: white;
-  }
-  
-  .delete-btn {
-    background: #f44336;
-    color: white;
-  }
-  
-  .edit-btn:hover, .delete-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  }
-  
-  @media (max-width: 1200px) {
-    .cards-container {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-  
-  @media (max-width: 900px) {
-    .cards-container {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-  
-  @media (max-width: 600px) {
+}
+
+@media (max-width: 600px) {
   .cards-container {
     grid-template-columns: 1fr;
     padding: 10px;
   }
-  
+
+  .cult-card {
+    min-height: auto; /* Remove altura mínima no mobile */
+  }
+
   .action-buttons {
     flex-wrap: wrap;
     gap: 8px;
   }
 
-  .edit-btn, .delete-btn {
+  .edit-btn,
+  .delete-btn {
     flex: 1 1 calc(50% - 4px);
   }
 
   .share-btn {
     flex: 1 1 100%;
+    order: -1; /* Coloca o botão compartilhar primeiro no mobile */
   }
 }
   </style>
