@@ -39,10 +39,6 @@
         </span>
       </BotaoPadrao>
 
-      <p class="register-link">
-        Não tem uma conta?
-        <a href="#" @click.prevent="goToCadastro" class="register-link-text">Cadastre-se</a>
-      </p>
     </van-form>
   </div>
 </template>
