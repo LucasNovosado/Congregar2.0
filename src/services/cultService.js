@@ -7,6 +7,8 @@ export default {
     const query = new Parse.Query(Cult);
     const currentUser = Parse.User.current();
     query.equalTo('user', currentUser);
+    query.limit(1000); // <- Adicionado aqui
+
     try {
       const results = await query.find();
       return results.map(cult => ({
@@ -26,6 +28,7 @@ export default {
       throw error;
     }
   },
+  //.
 
   async fetchServiceNames() {
     const Cult = Parse.Object.extend('Cult');
